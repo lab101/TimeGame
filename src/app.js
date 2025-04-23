@@ -10,20 +10,16 @@ let intervalHandle = null;
 let nr1;
 let nr2;
 
+let goal;
+let goalText;
+
+let btnRestart;
+
 document.addEventListener("DOMContentLoaded", function() {
     console.log("DOM fully loaded and parsed");
     // Initialize the app
     init();
 
-    // let serialBtn = window.myAPI.serialBtn();
-    // serialBtn.connect(9600)
-    //     .then(() => {
-    //         console.log('Serial button connected');
-    //     })
-    //     .catch((error) => {
-    //         console.error('Error connecting to serial button:', error);
-    //     }
-    // );
 
     window.myAPI.buttonDown((value) => {
         console.log("Button down event received");
@@ -43,6 +39,11 @@ function init() {
     let btnUp = document.getElementById("btnUp");
     let btnDown = document.getElementById("btnDown");
     let clock = document.getElementById("clock");
+    btnRestart = document.getElementById("btnRestart");
+
+    goal = document.getElementById("goal");
+
+    goalText = goal.innerText;
 
 
     nr1 = document.getElementById("nr1");
@@ -60,6 +61,11 @@ function init() {
         toggleClock();
     });
 
+    btnRestart.addEventListener("click", () => {
+        restart();
+    });
+
+
    setTimeAnimated(20);
    targetTime = 20;
 }
@@ -68,10 +74,38 @@ function init() {
 function toggleClock() {
 
     if (isClockRunning) {
+        showNumbers();
         checkResult();
     }else{
         startTimer();
+        hideNumbers();
     }
+
+}
+
+function hideNumbers() {
+
+    nr1.style.display = "none";
+    nr2.style.display = "none";
+    
+    goal.innerText = goalText.replace("x", targetTime);
+    goal.style.display = "block";
+
+    let buttons = document.getElementById("buttons");
+    buttons.style.display = "none";
+
+}
+
+function showNumbers() {
+    nr1.style.display = "block";
+    nr2.style.display = "block";
+    goal.style.display = "none";
+   
+    setTimeout(() => {
+        let buttons = document.getElementById("buttons");
+        buttons.style.display = "flex";
+    }
+    , 3000);
 
 }
 
@@ -79,7 +113,17 @@ function checkResult() {
     intervalHandle = clearInterval(intervalHandle);
     isClockRunning = false;
     let result = currentTime - targetTime;
+    
     console.log("Result: " + result);
+}
+
+function restart() {
+    intervalHandle = clearInterval(intervalHandle);
+    isClockRunning = false;
+    currentTime = 0;
+
+    setTimeAnimated(targetTime);
+    goal.style.display = "none";
 }
 
 function startTimer() {
@@ -144,9 +188,7 @@ function setTimeAnimated(time) {
         snap: { value: 1 },
         ease: "power3.out",
         onUpdate: function () {
-
             setTime(counter.value);
-
         }
     });
 

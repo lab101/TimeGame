@@ -5,50 +5,6 @@ const SerialButton = require('./serialButton.js');
 
 
 
-// serialButton.connect(9600)
-//   .then(() => {
-//     console.log('Serial button connected');
-
-//   })
-//   .catch((error) => {
-//     console.error('Error connecting to serial button:', error);
-//   });
-
-// function setupSerialPort(path) {
-  
-//   const port = new SerialPort({
-//     path: path,
-//     baudRate: 9600,
-//   })
-  
-  
-//   port.on('error', function(err) {
-//     console.log('Error: ', err.message)
-//   })
-  
-  
-//   port.on('data', function (data) {
-//     lastSerialDataTime = Date.now();
-//     if(!serialButtonPressed){
-//       serialButtonPressed = true;
-//       console.log('Serial button down');
-
-//     }
-
-//   })
-// }
-
-
-// setInterval(() => {
-
-
-//   if(serialButtonPressed &&  Date.now() - lastSerialDataTime > 10) {
-//     serialButtonPressed = false;
-//     console.log('Serial button up');
-//   }
-// }, 10);
-
-
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
   app.quit();
@@ -99,8 +55,7 @@ const createWindow = () => {
  serialButton.on('buttonDown', () => {
     console.log("Button down event received");
     mainWindow.webContents.send('buttonDown', true);
-  }
-  );
+  });
    
 
 
