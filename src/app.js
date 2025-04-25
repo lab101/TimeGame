@@ -66,7 +66,7 @@ function init() {
     });
 
 
-   setTimeAnimated(20);
+   setTimeAnimated(0,20);
    targetTime = 20;
 
    reset();
@@ -128,7 +128,7 @@ function reset() {
     isClockRunning = false;
     currentTime = 0;
 
-    setTimeAnimated(targetTime);
+    setTimeAnimated(currentTime,targetTime);
     goal.style.display = "none";
     document.body.className ="backgroundNeutral";
 }
@@ -164,7 +164,7 @@ function up() {
         newtime = targetTime + 10;
     }
 
-    setTimeAnimated(newtime);
+    setTimeAnimated(targetTime,newtime);
 
     targetTime = newtime;
 }
@@ -184,21 +184,21 @@ function down() {
         newtime = targetTime - 10;
     }
 
-    setTimeAnimated(newtime);
+    setTimeAnimated(targetTime,newtime);
     targetTime = newtime;
 
 }
 
-function setTimeAnimated(time) {
+function setTimeAnimated(from,to) {
     
-    let counter = {value: targetTime};
+    let counter = {value: from};
 
-    let duration = Math.abs(time - targetTime)/40;
+    let duration = Math.abs(from - to)/40;
 
-    targetTime = time;
+    targetTime = to;
     // gsap animation from 0 to time
     gsap.to(counter, {
-        value: time,
+        value: to,
         duration: duration,
         snap: { value: 1 },
         ease: "power3.out",

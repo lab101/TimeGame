@@ -26,6 +26,7 @@ const createWindow = () => {
     contextIsolation: true,
     nodeIntegration: false,
     sandbox: false,
+    fullscreen:true,
     allowRunningInsecureContent: true,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
@@ -36,7 +37,7 @@ const createWindow = () => {
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  //mainWindow.webContents.openDevTools();
 
 
 
