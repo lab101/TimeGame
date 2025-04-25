@@ -62,12 +62,14 @@ function init() {
     });
 
     btnRestart.addEventListener("click", () => {
-        restart();
+        reset();
     });
 
 
    setTimeAnimated(20);
    targetTime = 20;
+
+   reset();
 }
 
 
@@ -77,6 +79,7 @@ function toggleClock() {
         showNumbers();
         checkResult();
     }else{
+        reset();
         startTimer();
         hideNumbers();
     }
@@ -112,26 +115,29 @@ function checkResult() {
     let result = currentTime - targetTime;
 
     if(Math.abs(result) <= 1) {
-        // change background color to green
-        document.body.style.backgroundColor = "green";
+        document.body.className ="backgroundWin";
     }else{
-        // change background color to red
-        document.body.style.backgroundColor = "red";
+        document.body.className ="backgroundLose";
     }
     
     console.log("Result: " + result);
 }
 
-function restart() {
+function reset() {
     intervalHandle = clearInterval(intervalHandle);
     isClockRunning = false;
     currentTime = 0;
 
     setTimeAnimated(targetTime);
     goal.style.display = "none";
+    document.body.className ="backgroundNeutral";
 }
 
+
+
 function startTimer() {
+
+    document.body.className ="backgroundNeutral";
 
     currentTime = 0;
     setTime(currentTime);
@@ -145,6 +151,10 @@ function startTimer() {
 
 
 function up() {
+
+    if(targetTime == 90) {
+        return;
+    }
     let newtime;
 
     if (targetTime == 5) {

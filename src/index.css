@@ -3,7 +3,19 @@ body {
   margin: auto;
   max-width: 48rem;
   padding: 2rem;
-  background-color: aquamarine;
+}
+
+.backgroundNeutral {
+  background-color: rgb(9, 161, 255);
+  color: white;
+}
+
+.backgroundWin {
+  background-color: rgb(12, 255, 166);
+}
+
+.backgroundLose {
+  background-color: rgb(255, 0, 119);
 }
 
 h1 {
@@ -52,8 +64,18 @@ button {
   cursor: pointer;
   border-radius: 0.5rem;
   border: 0.2rem solid rgba(38, 0, 255, 0);
-
 }
+
+button:hover {
+  background-color: rgb(193, 220, 255);
+  color: rgb(0, 103, 181);
+  cursor: pointer;
+}
+
+button:active {
+  background-color: rgb(15, 243, 255);
+  color: white;
+  border: 0.2rem solid rgb(9, 170, 178);
 
 
 #goal{
