@@ -101,11 +101,8 @@ function showNumbers() {
     nr2.style.display = "block";
     goal.style.display = "none";
    
-    setTimeout(() => {
-        let buttons = document.getElementById("buttons");
-        buttons.style.display = "flex";
-    }
-    , 3000);
+    let buttons = document.getElementById("buttons");
+    buttons.style.display = "flex";
 
 }
 
@@ -113,6 +110,14 @@ function checkResult() {
     intervalHandle = clearInterval(intervalHandle);
     isClockRunning = false;
     let result = currentTime - targetTime;
+
+    if(Math.abs(result) <= 1) {
+        // change background color to green
+        document.body.style.backgroundColor = "green";
+    }else{
+        // change background color to red
+        document.body.style.backgroundColor = "red";
+    }
     
     console.log("Result: " + result);
 }
